@@ -1,5 +1,6 @@
 # Interaction & Debug Logger
 
+
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-2.5-orange.svg)
 ![WordPress](https://img.shields.io/badge/WordPress-Compatible-blue.svg)
