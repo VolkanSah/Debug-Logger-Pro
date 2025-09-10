@@ -2,7 +2,7 @@
 
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-2.5-orange.svg)
+![Version](https://img.shields.io/badge/version-3.0-orange.svg)
 ![WordPress](https://img.shields.io/badge/WordPress-Compatible-blue.svg)
 
 ## Description
