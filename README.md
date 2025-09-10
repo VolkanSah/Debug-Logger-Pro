@@ -96,7 +96,7 @@ Many developers already have these lines enabled. The plugin will use the debug-
 ### 2. Professional Console
 ![Console View](docs/console.jpg)
 
-### 3. Fatal Error Detection
+### 3. Error Detection
 ![Error Detection](docs/error.jpg)
 
 ## Changelog
