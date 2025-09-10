@@ -313,6 +313,119 @@ class EnhancedDebugLogger
                 padding-left: 8px;
                 font-weight: bold;
             }
+
+
+
+
+
+    
+    /* Ubuntu Terminal Style */
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
+    
+    .ubuntu-terminal {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        background-color: #300A24; /* Tiefer, dunkler Purpur-Hintergrund */
+        border-top: 2px solid #555753;
+        overflow: hidden;
+        transition: height 0.3s ease-in-out;
+        z-index: 999999;
+        color: #F8F8F8; /* Helles Grau für Text */
+        font-family: 'Ubuntu Mono', monospace;
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .terminal-header {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #2D2D2D;
+        text-align: center;
+        font-weight: bold;
+        color: #E8E8E8;
+        border-bottom: 1px solid #444;
+    }
+
+    .ubuntu-terminal:not(.minimized) {
+        height: 400px;
+    }
+    
+    .terminal-content {
+        padding: 15px;
+        height: calc(100% - 40px);
+        overflow: auto;
+        display: none;
+    }
+    
+    .terminal-toolbar {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        background-color: #2D2D2D;
+        padding: 5px;
+        border-radius: 4px;
+    }
+    
+    .terminal-button {
+        font-family: 'Ubuntu Mono', monospace;
+        font-size: 12px;
+        background-color: #3A3A3A;
+        color: #E8E8E8;
+        border: 1px solid #5A5A5A;
+        padding: 6px 10px;
+        cursor: pointer;
+        border-radius: 3px;
+        margin-right: 5px;
+        transition: background-color 0.2s;
+    }
+    
+    .terminal-button:hover {
+        background-color: #4A4A4A;
+    }
+
+    .terminal-select {
+        font-family: 'Ubuntu Mono', monospace;
+        font-size: 12px;
+        background-color: #3A3A3A;
+        color: #E8E8E8;
+        border: 1px solid #5A5A5A;
+        padding: 5px;
+        border-radius: 3px;
+    }
+    
+    .terminal-log-output {
+        max-height: 300px;
+        overflow-y: auto;
+        background-color: #2D2D2D;
+        padding: 10px;
+        border-radius: 3px;
+        font-size: 12px;
+        white-space: pre-wrap;
+    }
+
+    /* Log-Farben für den Terminal-Stil */
+    .log-fatal {
+        color: #FF5555; /* Leuchtendes Rot */
+    }
+    
+    .log-error {
+        color: #F8B400; /* Gelb-Orange */
+    }
+    
+    .log-warning {
+        color: #FFE100; /* Helles Gelb */
+    }
+    
+    .log-notice {
+        color: #A3C9FF; /* Hellblau */
+    }
+    
+    .log-info {
+        color: #E8E8E8; /* Helles Grau */
+    }
+</style>
         </style>
 
         <script>
@@ -572,31 +685,32 @@ class EnhancedDebugLogger
     }
 
     public function add_console()
-    {
-        if (current_user_can('manage_options') && get_option('edl_enabled', '0') === '1') {
-            $refresh_interval = intval(get_option('edl_refresh_interval', '1000'));
-            ?>
-            <div id="edl-console" style="position:fixed; bottom:0; left:0; right:0; height:40px; background:#23282d; border-top:2px solid #0073aa; overflow:hidden; transition:height 0.3s; z-index: 999999; color: #fff; font-family: 'Courier New', monospace;">
-                <div style="padding:10px; cursor:pointer; background:#32373c; text-align:center; font-weight:bold;" onclick="edlToggleConsole()">
-                    🔍 <?php echo esc_html(__('Enhanced Debug Console (Click to expand)', 'enhanced-debug-logger')); ?> 🔍
-                </div>
-                <div id="edl-console-content" style="padding:15px; height:calc(100% - 40px); overflow:auto; display:none;">
-                    <div style="margin-bottom: 10px; display: flex; align-items: center;">
-                        <button id="edl-clear-log" style="font-size: 12px; margin-right: 10px; background:#0073aa; color:#fff; border:none; padding:8px 12px; cursor:pointer; border-radius:3px;"><?php echo esc_html(__('Clear', 'enhanced-debug-logger')); ?></button>
-                        <button id="edl-copy-log" style="font-size: 12px; margin-right: 10px; background:#00a32a; color:#fff; border:none; padding:8px 12px; cursor:pointer; border-radius:3px;"><?php echo esc_html(__('Copy', 'enhanced-debug-logger')); ?></button>
-                        <button id="edl-toggle-auto" style="font-size: 12px; background:#d63638; color:#fff; border:none; padding:8px 12px; cursor:pointer; border-radius:3px;"><?php echo esc_html(__('Auto: ON', 'enhanced-debug-logger')); ?></button>
-                        <select id="edl-log-filter-select" style="margin-left: 10px; font-size: 12px; padding: 5px;">
-                            <option value="all">Alle</option>
-                            <option value="fatal">Fatal Errors</option>
-                            <option value="error">Errors</option>
-                            <option value="warning">Warnings</option>
-                            <option value="notice">Notices</option>
-                        </select>
-                    </div>
-                    <div id="edl-log-content" style="max-height: 300px; overflow-y: auto; background:#1e1e1e; padding:10px; border-radius:3px; font-size:11px;"></div>
-                </div>
+{
+    if (current_user_can('manage_options') && get_option('edl_enabled', '0') === '1') {
+        $refresh_interval = intval(get_option('edl_refresh_interval', '1000'));
+        ?>
+        <div id="edl-console" class="ubuntu-terminal">
+            <div class="terminal-header" onclick="edlToggleConsole()">
+                🔍 <?php echo esc_html(__('Enhanced Debug Console (Click to expand)', 'enhanced-debug-logger')); ?> 🔍
             </div>
+            <div id="edl-console-content" class="terminal-content">
+                <div class="terminal-toolbar">
+                    <button id="edl-clear-log" class="terminal-button clear-btn"><?php echo esc_html(__('Clear', 'enhanced-debug-logger')); ?></button>
+                    <button id="edl-copy-log" class="terminal-button copy-btn"><?php echo esc_html(__('Copy', 'enhanced-debug-logger')); ?></button>
+                    <button id="edl-toggle-auto" class="terminal-button toggle-btn"><?php echo esc_html(__('Auto: ON', 'enhanced-debug-logger')); ?></button>
+                    <select id="edl-log-filter-select" class="terminal-select">
+                        <option value="all">Alle</option>
+                        <option value="fatal">Fatal Errors</option>
+                        <option value="error">Errors</option>
+                        <option value="warning">Warnings</option>
+                        <option value="notice">Notices</option>
+                    </select>
+                </div>
+                <div id="edl-log-content" class="terminal-log-output"></div>
+            </div>
+        </div>
 
+    
             <script>
                 var edlRefreshInterval = <?php echo $refresh_interval; ?>;
                 var edlAutoRefresh = true;
@@ -639,30 +753,30 @@ class EnhancedDebugLogger
 
                 function edlRefreshConsoleContent() {
                     jQuery.ajax({
-                        url: '<?php echo admin_url('admin-ajax.php'); ?>',
-                        data: {
-                            action: 'get_combined_logs'
-                        },
-                        success: function(response) {
-                            var logs = response.split('\n').filter(line => line.trim() !== '');
-                            var filter = jQuery('#edl-log-filter-select').val();
-                            var filteredLogs = edlFilterLogs(logs, filter);
-                            var formatted = filteredLogs.map(function(line) {
-                                if (line.includes('Fatal') || line.includes('FATAL')) {
-                                    return '<div style="color:#ff6b6b; font-weight:bold;">' + line + '</div>';
-                                } else if (line.includes('Error') || line.includes('ERROR') || line.includes('Parse Error')) {
-                                    return '<div style="color:#ffa502;">' + line + '</div>';
-                                } else if (line.includes('Warning') || line.includes('WARNING')) {
-                                    return '<div style="color:#f9ca24;">' + line + '</div>';
-                                } else if (line.includes('Notice') || line.includes('NOTICE')) {
-                                    return '<div style="color:#6cb6ff;">' + line + '</div>';
-                                }
-                                return '<div style="color:#ddd;">' + line + '</div>';
-                            }).reverse().join('');
-                            jQuery('#edl-log-content').html(formatted);
-                        }
-                    });
-                }
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                    data: {
+                        action: 'get_combined_logs'
+                    },
+                    success: function(response) {
+                        var logs = response.split('\n').filter(line => line.trim() !== '');
+                        var filter = jQuery('#edl-log-filter-select').val();
+                        var filteredLogs = edlFilterLogs(logs, filter);
+                        var formatted = filteredLogs.map(function(line) {
+                            if (line.includes('Fatal') || line.includes('FATAL')) {
+                                return '<div class="log-fatal">' + line + '</div>';
+                            } else if (line.includes('Error') || line.includes('ERROR') || line.includes('Parse Error')) {
+                                return '<div class="log-error">' + line + '</div>';
+                            } else if (line.includes('Warning') || line.includes('WARNING')) {
+                                return '<div class="log-warning">' + line + '</div>';
+                            } else if (line.includes('Notice') || line.includes('NOTICE')) {
+                                return '<div class="log-notice">' + line + '</div>';
+                            }
+                            return '<div class="log-info">' + line + '</div>';
+                        }).reverse().join('');
+                        jQuery('#edl-log-content').html(formatted);
+                    }
+                });
+            }
 
                 function edlStartAutoRefresh() {
                     if (edlAutoRefresh) {
