@@ -87,7 +87,7 @@ The plugin automatically catches and logs:
 ### Version 3.0 - AI Enhanced Edition
 - **🤖 MAJOR:** Complete rewrite with Claude 4 Sonnet assistance
 - **🔥 NEW:** Fatal error detection and logging
-- **🔥 NEW:** WordPress debug.log integration
+- **🔥 NEW:** WordPress debug-log.txt integration
 - **🔥 NEW:** Working copy-to-clipboard functionality
 - **🔥 NEW:** Combined log view with real-time updates
 - **🔥 NEW:** Color-coded error levels (Fatal/Warning/Notice)
