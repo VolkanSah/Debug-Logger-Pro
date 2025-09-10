@@ -6,6 +6,8 @@
 ![WordPress](https://img.shields.io/badge/WordPress-Compatible-blue.svg)
 ![AI Enhanced](https://img.shields.io/badge/AI%20Enhanced-Claude%204-purple.svg)
 
+
+
 ## Description
 
 **Enhanced Interaction & Debug Logger Pro** is a professional WordPress debugging plugin that captures everything - from simple page requests to fatal PHP errors. Born from frustration with bloated monitoring tools and debug bars that slow down development, this plugin provides a lightweight, comprehensive logging solution.
@@ -21,7 +23,7 @@
 
 ### 🚀 **Professional Logging**
 - **Real-time WordPress Debug Integration** - automatically enables WP_DEBUG when needed
-- **Combined Log Views** - see your custom logs AND WordPress debug.log in one place
+- **Combined Log Views** - see your custom logs AND WordPress debug-log.txt in one place
 - **Copy-to-Clipboard Functionality** - finally works properly with modern browsers
 - **Color-coded Error Levels** - Fatal errors in red, warnings in orange, notices in yellow
 
@@ -36,6 +38,11 @@
 - **Configurable log size limits** prevent disk space issues
 - **Optional AJAX request filtering** keeps logs clean
 - **Lightweight footprint** - no bloat, just functionality
+
+### 🌍 **Internationalization (i18n) Ready**
+- **Full WP-i18n integration** ensures all text strings are translatable.
+- **`.pot` and `.po` file generation support** to easily create new language packs.
+- **Seamless multi-language compatibility** for a global developer community.
 
 ## Installation
 
@@ -53,7 +60,7 @@
 
 ### Viewing Logs
 - **Live Logs Tab:** Your custom interaction and error logs
-- **WordPress Debug Tab:** Standard WordPress debug.log content
+- **WordPress Debug Tab:** Standard WordPress debug-log.txt content
 - **Combined View:** Everything in chronological order with auto-scroll
 
 ### Console Usage
@@ -83,6 +90,10 @@ The plugin automatically catches and logs:
 ![Error Detection](screenshots/error-detection-v3.png)
 
 ## Changelog
+
+### Version 3.1 - The Collaborative Polish
+- **🌍 NEW:** Full internationalization (i18n) support added with `.pot` and `.po` file generation capability.
+- **✨ IMPROVED:** Adjusted the default WordPress debug log filename to `debug-log.txt` for consistency with some hosting environments.
 
 ### Version 3.0 - AI Enhanced Edition
 - **🤖 MAJOR:** Complete rewrite with Claude 4 Sonnet assistance
@@ -121,7 +132,7 @@ The plugin automatically catches and logs:
 
 **The Solution:** Instead of patching these issues one by one, I collaborated with Claude 4 Sonnet to rebuild the plugin properly. The AI helped identify the bugs, suggested modern WordPress best practices, and helped implement professional error handling.
 
-**Credits:** Special thanks to Anthropic's Claude 4 Sonnet for the code review, bug identification, and architectural improvements that made this version possible.
+**Credits:** Special thanks to Anthropic's Claude 4 Sonnet for the code review, bug identification, and architectural improvements that made this version possible. **Additional thanks to Google's Gemini for the full internationalization support and the generation of the `.pot` and `.po` language files.**
 
 ## Contributing
 
@@ -133,12 +144,13 @@ Contributions are welcome! This plugin was enhanced with AI assistance, but huma
 
 ## AI Enhancement Notice
 
-This plugin was significantly improved with assistance from Claude 4 Sonnet (Anthropic). The AI helped with:
+This plugin was significantly improved with assistance from Claude 4 Sonnet (Anthropic) and Gemini (Google). The AIs helped with:
 - Code review and bug identification
 - WordPress best practices implementation
 - Security improvements
 - Performance optimization suggestions
 - Modern JavaScript API usage
+- **Internationalization and Language File Generation**
 
 ## License
 
@@ -153,4 +165,3 @@ For support, bug reports, or feature requests, please open an issue on the GitHu
 **Finally, a WordPress debug logger that doesn't suck!**
 
 *Enhanced with AI - Built for Developers - Tested in Production*
-
