@@ -1,0 +1,211 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Enhanced Interaction & Debug Logger Pro 3.1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: enhanced-debug-logger.php:80
+msgid "Fatal Error"
+msgstr "Fataler Fehler"
+
+#: enhanced-debug-logger.php:81
+msgid "Warning"
+msgstr "Warnung"
+
+#: enhanced-debug-logger.php:82
+msgid "Parse Error"
+msgstr "Analysefehler"
+
+#: enhanced-debug-logger.php:83
+msgid "Notice"
+msgstr "Hinweis"
+
+#: enhanced-debug-logger.php:84
+msgid "Core Error"
+msgstr "Kernfehler"
+
+#: enhanced-debug-logger.php:85
+msgid "Core Warning"
+msgstr "Kernwarnung"
+
+#: enhanced-debug-logger.php:86
+msgid "Compile Error"
+msgstr "Kompilierungsfehler"
+
+#: enhanced-debug-logger.php:87
+msgid "Compile Warning"
+msgstr "Kompilierungswarnung"
+
+#: enhanced-debug-logger.php:88
+msgid "User Error"
+msgstr "Benutzerfehler"
+
+#: enhanced-debug-logger.php:89
+msgid "User Warning"
+msgstr "Benutzerwarnung"
+
+#: enhanced-debug-logger.php:90
+msgid "User Notice"
+msgstr "Benutzerhinweis"
+
+#: enhanced-debug-logger.php:91
+msgid "Strict Standards"
+msgstr "Strikte Standards"
+
+#: enhanced-debug-logger.php:92
+msgid "Recoverable Error"
+msgstr "Wiederherstellbarer Fehler"
+
+#: enhanced-debug-logger.php:93
+msgid "Deprecated"
+msgstr "Veraltet"
+
+#: enhanced-debug-logger.php:94
+msgid "User Deprecated"
+msgstr "Benutzer-Veraltet"
+
+#: enhanced-debug-logger.php:97
+msgid "Unknown Error"
+msgstr "Unbekannter Fehler"
+
+#: enhanced-debug-logger.php:103
+msgid "Fatal Error"
+msgstr "Fataler Fehler"
+
+#: enhanced-debug-logger.php:143
+msgid "Enhanced Debug Logger"
+msgstr "Erweiterter Debug-Logger"
+
+#: enhanced-debug-logger.php:144
+msgid "Debug Logger Pro"
+msgstr "Debug Logger Pro"
+
+#: enhanced-debug-logger.php:156
+msgid "Enhanced Debug Logger Pro"
+msgstr "Erweiterter Debug Logger Pro"
+
+#: enhanced-debug-logger.php:159
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: enhanced-debug-logger.php:160
+msgid "Live Logs"
+msgstr "Live-Protokolle"
+
+#: enhanced-debug-logger.php:161
+msgid "WordPress Debug"
+msgstr "WordPress Debug"
+
+#: enhanced-debug-logger.php:162
+msgid "Combined View"
+msgstr "Kombinierte Ansicht"
+
+#: enhanced-debug-logger.php:171
+msgid "Enable Debug Logging"
+msgstr "Debug-Protokollierung aktivieren"
+
+#: enhanced-debug-logger.php:175
+msgid "Enable WordPress Debug Mode"
+msgstr "WordPress Debug-Modus aktivieren"
+
+#: enhanced-debug-logger.php:177
+msgid "Automatically enables WP_DEBUG, WP_DEBUG_LOG, and disables WP_DEBUG_DISPLAY"
+msgstr "Aktiviert automatisch WP_DEBUG, WP_DEBUG_LOG und deaktiviert WP_DEBUG_DISPLAY"
+
+#: enhanced-debug-logger.php:181
+msgid "Log AJAX Requests"
+msgstr "AJAX-Anfragen protokollieren"
+
+#: enhanced-debug-logger.php:185
+msgid "Refresh Interval (ms)"
+msgstr "Aktualisierungsintervall (ms)"
+
+#: enhanced-debug-logger.php:189
+msgid "Max Log Size (MB)"
+msgstr "Maximale Protokollgröße (MB)"
+
+#: enhanced-debug-logger.php:193
+msgid "Save Settings"
+msgstr "Einstellungen speichern"
+
+#: enhanced-debug-logger.php:197
+msgid "Clean Log"
+msgstr "Protokoll leeren"
+
+#: enhanced-debug-logger.php:198
+msgid "Copy to Clipboard"
+msgstr "In die Zwischenablage kopieren"
+
+#: enhanced-debug-logger.php:199
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+#: enhanced-debug-logger.php:204
+msgid "Clean WP Debug Log"
+msgstr "WP Debug-Protokoll leeren"
+
+#: enhanced-debug-logger.php:205
+msgid "Copy to Clipboard"
+msgstr "In die Zwischenablage kopieren"
+
+#: enhanced-debug-logger.php:206
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+#: enhanced-debug-logger.php:211
+msgid "Copy to Clipboard"
+msgstr "In die Zwischenablage kopieren"
+
+#: enhanced-debug-logger.php:212
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+#: enhanced-debug-logger.php:214
+msgid "Auto-scroll to bottom"
+msgstr "Automatisch nach unten scrollen"
+
+#: enhanced-debug-logger.php:280
+msgid "No log file found."
+msgstr "Keine Protokolldatei gefunden."
+
+#: enhanced-debug-logger.php:288
+msgid "No WordPress debug log found. Make sure WP_DEBUG_LOG is enabled."
+msgstr "Kein WordPress Debug-Protokoll gefunden. Stellen Sie sicher, dass WP_DEBUG_LOG aktiviert ist."
+
+#: enhanced-debug-logger.php:296
+msgid "ENHANCED DEBUG LOG"
+msgstr "ERWEITERTES DEBUG-PROTOKOLL"
+
+#: enhanced-debug-logger.php:301
+msgid "WORDPRESS DEBUG LOG"
+msgstr "WORDPRESS DEBUG-PROTOKOLL"
+
+#: enhanced-debug-logger.php:306
+msgid "No log files found."
+msgstr "Keine Protokolldateien gefunden."
+
+#: enhanced-debug-logger.php:325
+msgid "Enhanced Debug Console (Click to expand)"
+msgstr "Erweiterte Debug-Konsole (Zum Erweitern klicken)"
+
+#: enhanced-debug-logger.php:329
+msgid "Clear"
+msgstr "Leeren"
+
+#: enhanced-debug-logger.php:330
+msgid "Copy"
+msgstr "Kopieren"
+
+#: enhanced-debug-logger.php:331
+msgid "Auto: ON"
+msgstr "Auto: AN"
+
+#: enhanced-debug-logger.php:394
+msgid "Are you sure you want to clean the log?"
+msgstr "Sind Sie sicher, dass Sie das Protokoll leeren möchten?"
+
+#: enhanced-debug-logger.php:414
+msgid "Clear the debug log?"
+msgstr "Debug-Protokoll leeren?"
