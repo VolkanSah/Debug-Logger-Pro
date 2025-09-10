@@ -684,12 +684,12 @@ class EnhancedDebugLogger
         wp_die();
     }
 
-    public function add_console()
+   public function add_console()
 {
     if (current_user_can('manage_options') && get_option('edl_enabled', '0') === '1') {
         $refresh_interval = intval(get_option('edl_refresh_interval', '1000'));
         ?>
-        <div id="edl-console" class="ubuntu-terminal">
+        <div id="edl-console" class="ubuntu-terminal minimized">
             <div class="terminal-header" onclick="edlToggleConsole()">
                 🔍 <?php echo esc_html(__('Enhanced Debug Console (Click to expand)', 'enhanced-debug-logger')); ?> 🔍
             </div>
@@ -710,49 +710,23 @@ class EnhancedDebugLogger
             </div>
         </div>
 
-    
-            <script>
-                var edlRefreshInterval = <?php echo $refresh_interval; ?>;
-                var edlAutoRefresh = true;
-                var edlRefreshTimer;
+        <script>
+            var edlAutoRefresh = true;
+            var edlRefreshTimer;
 
-                function edlToggleConsole() {
-                    var console = document.getElementById('edl-console');
-                    var content = document.getElementById('edl-console-content');
-                    if (console.style.height === '40px' || console.style.height === '') {
-                        console.style.height = '400px';
-                        content.style.display = 'block';
-                        edlStartAutoRefresh();
-                    } else {
-                        console.style.height = '40px';
-                        content.style.display = 'none';
-                        edlStopAutoRefresh();
-                    }
+            function edlToggleConsole() {
+                var consoleDiv = document.getElementById('edl-console');
+                var consoleContent = document.getElementById('edl-console-content');
+                
+                if (consoleDiv.classList.contains('minimized')) {
+                    consoleDiv.classList.remove('minimized');
+                } else {
+                    consoleDiv.classList.add('minimized');
                 }
+            }
 
-                function edlFilterLogs(logs, filterType) {
-                    if (filterType === 'all') {
-                        return logs;
-                    }
-                    return logs.filter(function(line) {
-                        var logType;
-                        if (line.includes('Fatal Error') || line.includes('FATAL')) {
-                            logType = 'fatal';
-                        } else if (line.includes('Error') || line.includes('ERROR') || line.includes('Parse Error')) {
-                            logType = 'error';
-                        } else if (line.includes('Warning') || line.includes('WARNING')) {
-                            logType = 'warning';
-                        } else if (line.includes('Notice') || line.includes('NOTICE')) {
-                            logType = 'notice';
-                        } else {
-                            logType = 'other';
-                        }
-                        return logType === filterType;
-                    });
-                }
-
-                function edlRefreshConsoleContent() {
-                    jQuery.ajax({
+            function edlRefreshConsoleContent() {
+                jQuery.ajax({
                     url: '<?php echo admin_url('admin-ajax.php'); ?>',
                     data: {
                         action: 'get_combined_logs'
@@ -778,53 +752,61 @@ class EnhancedDebugLogger
                 });
             }
 
-                function edlStartAutoRefresh() {
-                    if (edlAutoRefresh) {
-                        edlRefreshTimer = setInterval(edlRefreshConsoleContent, edlRefreshInterval);
-                    }
-                    edlRefreshConsoleContent();
+            function edlFilterLogs(logs, filter) {
+                if (filter === 'all') {
+                    return logs;
                 }
+                var filterKey = '[' + filter.toUpperCase() + ']';
+                return logs.filter(line => line.includes(filterKey));
+            }
 
-                function edlStopAutoRefresh() {
-                    clearInterval(edlRefreshTimer);
-                }
+            function edlStartAutoRefresh() {
+                edlRefreshTimer = setInterval(edlRefreshConsoleContent, <?php echo $refresh_interval; ?>);
+            }
 
-                jQuery(document).ready(function($) {
-                    $('#edl-clear-log').click(function() {
-                        if (confirm('<?php echo esc_js(__('Clear the debug log?', 'enhanced-debug-logger')); ?>')) {
-                            $.ajax({
-                                url: '<?php echo admin_url('admin-ajax.php'); ?>',
-                                data: {
-                                    action: 'clean_debug_log'
-                                },
-                                success: function() {
-                                    edlRefreshConsoleContent();
-                                }
-                            });
-                        }
-                    });
+            function edlStopAutoRefresh() {
+                clearInterval(edlRefreshTimer);
+            }
 
-                    $('#edl-copy-log').click(function() {
-                        var text = $('#edl-log-content').text();
-                        navigator.clipboard.writeText(text).then(function() {
-                            alert('Log copied to clipboard!');
+            jQuery(document).ready(function($) {
+                edlRefreshConsoleContent();
+                edlStartAutoRefresh();
+
+                $('#edl-clear-log').click(function() {
+                    if (confirm('Are you sure you want to clear the debug log?')) {
+                        $.ajax({
+                            url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                            data: {
+                                action: 'clean_debug_log'
+                            },
+                            success: function() {
+                                edlRefreshConsoleContent();
+                            }
                         });
-                    });
-
-                    $('#edl-toggle-auto').click(function() {
-                        edlAutoRefresh = !edlAutoRefresh;
-                        $(this).text('Auto: ' + (edlAutoRefresh ? 'ON' : 'OFF'));
-                        if (edlAutoRefresh) {
-                            edlStartAutoRefresh();
-                        } else {
-                            edlStopAutoRefresh();
-                        }
-                    });
-
-                    $('#edl-log-filter-select').change(edlRefreshConsoleContent);
+                    }
                 });
-            </script>
-            <?php
+
+                $('#edl-copy-log').click(function() {
+                    var text = $('#edl-log-content').text();
+                    navigator.clipboard.writeText(text).then(function() {
+                        alert('Log copied to clipboard!');
+                    });
+                });
+
+                $('#edl-toggle-auto').click(function() {
+                    edlAutoRefresh = !edlAutoRefresh;
+                    $(this).text('Auto: ' + (edlAutoRefresh ? 'ON' : 'OFF'));
+                    if (edlAutoRefresh) {
+                        edlStartAutoRefresh();
+                    } else {
+                        edlStopAutoRefresh();
+                    }
+                });
+
+                $('#edl-log-filter-select').change(edlRefreshConsoleContent);
+            });
+        </script>
+        <?php
         }
     }
 
