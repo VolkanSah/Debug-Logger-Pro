@@ -54,12 +54,22 @@
             border-bottom: 2px solid #3b82f6;
             color: #3b82f6;
         }
+        .modal {
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+        }
+        .lazy-img {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .lazy-img.loaded {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="min-h-screen">
     <div id="globe-bg" class="globe-bg"></div>
     
-    <!-- Navigation -->
     <nav class="border-b border-gray-800 bg-gray-900/80 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -88,7 +98,6 @@
             </div>
         </div>
         
-        <!-- Mobile menu -->
         <div class="hidden md:hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#features" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Features</a>
@@ -102,7 +111,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <div class="relative overflow-hidden">
         <div class="max-w-7xl mx-auto">
             <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
@@ -133,7 +141,6 @@
         </div>
     </div>
 
-    <!-- Features Section -->
     <section id="features" class="py-12 sm:py-16 lg:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -146,7 +153,6 @@
             </div>
 
             <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                <!-- Feature 1 -->
                 <div class="feature-card bg-gray-800 rounded-lg p-6 transition-all duration-300 ease-in-out" data-aos="fade-up" data-aos-delay="200">
                     <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-900/50 text-blue-400">
                         <i data-feather="alert-triangle" class="h-6 w-6"></i>
@@ -157,7 +163,6 @@
                     </p>
                 </div>
 
-                <!-- Feature 2 -->
                 <div class="feature-card bg-gray-800 rounded-lg p-6 transition-all duration-300 ease-in-out" data-aos="fade-up" data-aos-delay="300">
                     <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-900/50 text-purple-400">
                         <i data-feather="file-text" class="h-6 w-6"></i>
@@ -168,7 +173,6 @@
                     </p>
                 </div>
 
-                <!-- Feature 3 -->
                 <div class="feature-card bg-gray-800 rounded-lg p-6 transition-all duration-300 ease-in-out" data-aos="fade-up" data-aos-delay="400">
                     <div class="flex items-center justify-center h-12 w-12 rounded-md bg-green-900/50 text-green-400">
                         <i data-feather="monitor" class="h-6 w-6"></i>
@@ -179,7 +183,6 @@
                     </p>
                 </div>
 
-                <!-- Feature 4 -->
                 <div class="feature-card bg-gray-800 rounded-lg p-6 transition-all duration-300 ease-in-out" data-aos="fade-up" data-aos-delay="500">
                     <div class="flex items-center justify-center h-12 w-12 rounded-md bg-yellow-900/50 text-yellow-400">
                         <i data-feather="zap" class="h-6 w-6"></i>
@@ -190,7 +193,6 @@
                     </p>
                 </div>
 
-                <!-- Feature 5 -->
                 <div class="feature-card bg-gray-800 rounded-lg p-6 transition-all duration-300 ease-in-out" data-aos="fade-up" data-aos-delay="600">
                     <div class="flex items-center justify-center h-12 w-12 rounded-md bg-red-900/50 text-red-400">
                         <i data-feather="globe" class="h-6 w-6"></i>
@@ -201,7 +203,6 @@
                     </p>
                 </div>
 
-                <!-- Feature 6 -->
                 <div class="feature-card bg-gray-800 rounded-lg p-6 transition-all duration-300 ease-in-out" data-aos="fade-up" data-aos-delay="700">
                     <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-900/50 text-indigo-400">
                         <i data-feather="cpu" class="h-6 w-6"></i>
@@ -215,7 +216,6 @@
         </div>
     </section>
 
-    <!-- Installation Section -->
     <section id="installation" class="py-12 sm:py-16 lg:py-20 bg-gray-900/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:grid lg:grid-cols-12 lg:gap-8">
@@ -328,7 +328,6 @@ define('WP_DEBUG_LOG', true);</code></pre>
         </div>
     </section>
 
-    <!-- Screenshots Section -->
     <section id="screenshots" class="py-12 sm:py-16 lg:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -345,27 +344,35 @@ define('WP_DEBUG_LOG', true);</code></pre>
                     <div class="bg-gray-800 p-4">
                         <h3 class="text-lg font-medium text-white">Admin Interface</h3>
                     </div>
-                    <img class="w-full" src="admin.jpg" alt="Admin Interface">
+                    <img class="w-full lazy-img cursor-pointer" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9' fill='%231f2937'%3E%3C/svg%3E" data-src="admin.jpg" alt="Admin Interface">
                 </div>
                 
                 <div class="overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
                     <div class="bg-gray-800 p-4">
                         <h3 class="text-lg font-medium text-white">Console View</h3>
                     </div>
-                    <img class="w-full" src="console.jpg" alt="Console View">
+                    <img class="w-full lazy-img cursor-pointer" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9' fill='%231f2937'%3E%3C/svg%3E" data-src="console.jpg" alt="Console View">
                 </div>
                 
                 <div class="overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="400">
                     <div class="bg-gray-800 p-4">
                         <h3 class="text-lg font-medium text-white">Error Detection</h3>
                     </div>
-                    <img class="w-full" src="error.jpg" alt="Error Detection">
+                    <img class="w-full lazy-img cursor-pointer" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9' fill='%231f2937'%3E%3C/svg%3E" data-src="error.jpg" alt="Error Detection">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Changelog Section -->
+    <div id="image-modal" class="modal fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="relative max-w-5xl max-h-full">
+            <button id="close-modal" class="absolute top-4 right-4 text-white hover:text-gray-300 z-10 transition-transform transform hover:scale-110">
+                <i data-feather="x" class="w-8 h-8"></i>
+            </button>
+            <img id="modal-image" src="" alt="Full-screen image" class="max-w-full max-h-[90vh] rounded-lg shadow-2xl">
+        </div>
+    </div>
+
     <section id="changelog" class="py-12 sm:py-16 lg:py-20 bg-gray-900/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -378,7 +385,6 @@ define('WP_DEBUG_LOG', true);</code></pre>
             </div>
             
             <div class="mt-12 space-y-8">
-                <!-- Version 3.1 -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
                     <div class="bg-blue-900 px-4 py-3">
                         <h3 class="text-lg font-bold text-white">Version 3.1 - The Collaborative Polish</h3>
@@ -391,7 +397,6 @@ define('WP_DEBUG_LOG', true);</code></pre>
                     </div>
                 </div>
                 
-                <!-- Version 3.0 -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="300">
                     <div class="bg-purple-900 px-4 py-3">
                         <h3 class="text-lg font-bold text-white">Version 3.0 - AI Enhanced Edition</h3>
@@ -420,7 +425,6 @@ define('WP_DEBUG_LOG', true);</code></pre>
                     </div>
                 </div>
                 
-                <!-- Version 2.5 -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="400">
                     <div class="bg-indigo-900 px-4 py-3">
                         <h3 class="text-lg font-bold text-white">Version 2.5 (Previous)</h3>
@@ -438,7 +442,6 @@ define('WP_DEBUG_LOG', true);</code></pre>
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-blue-900/50 to-purple-900/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl font-extrabold text-white sm:text-4xl" data-aos="fade-up">
@@ -455,7 +458,6 @@ define('WP_DEBUG_LOG', true);</code></pre>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-900">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="xl:grid xl:grid-cols-3 xl:gap-8">
@@ -580,6 +582,58 @@ define('WP_DEBUG_LOG', true);</code></pre>
                 });
             });
         });
+
+        // Lazy load images with Intersection Observer
+        const lazyImages = document.querySelectorAll('.lazy-img');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const src = img.getAttribute('data-src');
+                    img.src = src;
+                    img.onload = () => {
+                        img.classList.add('loaded');
+                    };
+                    observer.unobserve(img);
+                }
+            });
+        }, observerOptions);
+
+        lazyImages.forEach(img => {
+            imageObserver.observe(img);
+        });
+
+        // Image modal functionality
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-image');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        document.querySelectorAll('.lazy-img').forEach(img => {
+            img.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                modalImg.src = img.src;
+            });
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target.id === 'image-modal') {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        });
+
     </script>
 </body>
 </html>
