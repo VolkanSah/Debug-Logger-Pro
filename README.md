@@ -5,6 +5,7 @@
 ![Version](https://img.shields.io/badge/version-3.0-green.svg)
 ![WordPress](https://img.shields.io/badge/WordPress-Compatible-blue.svg)
 ![AI Enhanced](https://img.shields.io/badge/AI%20Enhanced-Claude%204-purple.svg)
+![AI Enhanced](https://img.shields.io/badge/AI%20Enhanced-Gemini%204-purple.svg)
 
 
 
