@@ -1,7 +1,7 @@
 # Enhanced Interaction & Debug Logger Pro
 
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![License](https://img.shields.io/badge/license-DBAD-blue.svg)
 ![Version](https://img.shields.io/badge/version-3.0-green.svg)
 ![WordPress](https://img.shields.io/badge/WordPress-Compatible-blue.svg)
 ![AI Enhanced](https://img.shields.io/badge/AI%20Enhanced-Claude%204-purple.svg)
