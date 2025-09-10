@@ -79,6 +79,15 @@ The plugin automatically catches and logs:
 - Custom Error Messages
 - All WordPress Debug Messages
 
+### WP_DEBUG Integration
+For most interactions during plugin and theme development, this tool is enought. If you need a complete debug history including all WordPress notices and warnings with this plugin, you must manually enable it. Add the following lines to your `wp-config.php`:
+
+```php
+define('WP_DEBUG', true);
+define('WP_DEBUG_LOG', true);
+```
+Many developers already have these lines enabled. The plugin will use the debug-log.txt file created by WordPress for its "WordPress Debug" tab.
+
 ## Screenshots
 
 ### 1. Enhanced Admin Interface
@@ -93,21 +102,21 @@ The plugin automatically catches and logs:
 ## Changelog
 
 ### Version 3.1 - The Collaborative Polish
-- **🌍 NEW:** Full internationalization (i18n) support added with `.pot` and `.po` file generation capability.
-- **✨ IMPROVED:** Adjusted the default WordPress debug log filename to `debug-log.txt` for consistency with some hosting environments.
+- ** NEW:** Full internationalization (i18n) support added with `.pot` and `.po` file generation capability.
+- ** IMPROVED:** Adjusted the default WordPress debug log filename to `debug-log.txt` for consistency with some hosting environments.
 
 ### Version 3.0 - AI Enhanced Edition
-- **🤖 MAJOR:** Complete rewrite with Claude 4 Sonnet assistance
-- **🔥 NEW:** Fatal error detection and logging
-- **🔥 NEW:** WordPress debug-log.txt integration
-- **🔥 NEW:** Working copy-to-clipboard functionality
-- **🔥 NEW:** Combined log view with real-time updates
-- **🔥 NEW:** Color-coded error levels (Fatal/Warning/Notice)
-- **🔥 NEW:** Tab-based admin interface
-- **🔥 NEW:** Auto-scroll and pause/resume controls
-- **🔥 NEW:** File-locking for concurrent request safety
-- **🔥 NEW:** Configurable log size limits
-- **🔥 NEW:** Professional error handling and user feedback
+- ** MAJOR:** Complete rewrite with Claude 4 Sonnet assistance
+- ** NEW:** Fatal error detection and logging
+- ** NEW:** WordPress debug-log.txt integration
+- ** NEW:** Working copy-to-clipboard functionality
+- ** NEW:** Combined log view with real-time updates
+- ** NEW:** Color-coded error levels (Fatal/Warning/Notice)
+- ** NEW:** Tab-based admin interface
+- ** NEW:** Auto-scroll and pause/resume controls
+- ** NEW:** File-locking for concurrent request safety
+- ** NEW:** Configurable log size limits
+- ** NEW:** Professional error handling and user feedback
 - **FIXED:** Double hook registration bug from v2.5
 - **FIXED:** XSS vulnerability in log display
 - **FIXED:** Race condition in file writing
@@ -121,19 +130,6 @@ The plugin automatically catches and logs:
 - **NEW:** Filter out unnecessary AJAX logs for cleaner data
 - **Improvement:** Enhanced UI for better accessibility and user experience
 - **Improvement:** Added "Clear Log" button directly in the console
-
-## Why Version 3.0?
-
-**The Honest Story:** Version 2.5 had some solid ideas but several critical bugs:
-- **Double hook registration** caused admin menu issues
-- **No fatal error detection** meant missing the most important errors
-- **Copy function was broken** and frustrating to use
-- **Race conditions** in file writing
-- **XSS vulnerability** in log display
-
-**The Solution:** Instead of patching these issues one by one, I collaborated with Claude 4 Sonnet to rebuild the plugin properly. The AI helped identify the bugs, suggested modern WordPress best practices, and helped implement professional error handling.
-
-**Credits:** Special thanks to Anthropic's Claude 4 Sonnet for the code review, bug identification, and architectural improvements that made this version possible. **Additional thanks to Google's Gemini for the full internationalization support and the generation of the `.pot` and `.po` language files.**
 
 ## Contributing
 
