@@ -1,0 +1,210 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Enhanced Interaction & Debug Logger Pro 3.1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+
+#: enhanced-debug-logger.php:80
+msgid "Fatal Error"
+msgstr ""
+
+#: enhanced-debug-logger.php:81
+msgid "Warning"
+msgstr ""
+
+#: enhanced-debug-logger.php:82
+msgid "Parse Error"
+msgstr ""
+
+#: enhanced-debug-logger.php:83
+msgid "Notice"
+msgstr ""
+
+#: enhanced-debug-logger.php:84
+msgid "Core Error"
+msgstr ""
+
+#: enhanced-debug-logger.php:85
+msgid "Core Warning"
+msgstr ""
+
+#: enhanced-debug-logger.php:86
+msgid "Compile Error"
+msgstr ""
+
+#: enhanced-debug-logger.php:87
+msgid "Compile Warning"
+msgstr ""
+
+#: enhanced-debug-logger.php:88
+msgid "User Error"
+msgstr ""
+
+#: enhanced-debug-logger.php:89
+msgid "User Warning"
+msgstr ""
+
+#: enhanced-debug-logger.php:90
+msgid "User Notice"
+msgstr ""
+
+#: enhanced-debug-logger.php:91
+msgid "Strict Standards"
+msgstr ""
+
+#: enhanced-debug-logger.php:92
+msgid "Recoverable Error"
+msgstr ""
+
+#: enhanced-debug-logger.php:93
+msgid "Deprecated"
+msgstr ""
+
+#: enhanced-debug-logger.php:94
+msgid "User Deprecated"
+msgstr ""
+
+#: enhanced-debug-logger.php:97
+msgid "Unknown Error"
+msgstr ""
+
+#: enhanced-debug-logger.php:103
+msgid "Fatal Error"
+msgstr ""
+
+#: enhanced-debug-logger.php:143
+msgid "Enhanced Debug Logger"
+msgstr ""
+
+#: enhanced-debug-logger.php:144
+msgid "Debug Logger Pro"
+msgstr ""
+
+#: enhanced-debug-logger.php:156
+msgid "Enhanced Debug Logger Pro"
+msgstr ""
+
+#: enhanced-debug-logger.php:159
+msgid "Settings"
+msgstr ""
+
+#: enhanced-debug-logger.php:160
+msgid "Live Logs"
+msgstr ""
+
+#: enhanced-debug-logger.php:161
+msgid "WordPress Debug"
+msgstr ""
+
+#: enhanced-debug-logger.php:162
+msgid "Combined View"
+msgstr ""
+
+#: enhanced-debug-logger.php:171
+msgid "Enable Debug Logging"
+msgstr ""
+
+#: enhanced-debug-logger.php:175
+msgid "Enable WordPress Debug Mode"
+msgstr ""
+
+#: enhanced-debug-logger.php:177
+msgid "Automatically enables WP_DEBUG, WP_DEBUG_LOG, and disables WP_DEBUG_DISPLAY"
+msgstr ""
+
+#: enhanced-debug-logger.php:181
+msgid "Log AJAX Requests"
+msgstr ""
+
+#: enhanced-debug-logger.php:185
+msgid "Refresh Interval (ms)"
+msgstr ""
+
+#: enhanced-debug-logger.php:189
+msgid "Max Log Size (MB)"
+msgstr ""
+
+#: enhanced-debug-logger.php:193
+msgid "Save Settings"
+msgstr ""
+
+#: enhanced-debug-logger.php:197
+msgid "Clean Log"
+msgstr ""
+
+#: enhanced-debug-logger.php:198
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: enhanced-debug-logger.php:199
+msgid "Refresh"
+msgstr ""
+
+#: enhanced-debug-logger.php:204
+msgid "Clean WP Debug Log"
+msgstr ""
+
+#: enhanced-debug-logger.php:205
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: enhanced-debug-logger.php:206
+msgid "Refresh"
+msgstr ""
+
+#: enhanced-debug-logger.php:211
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: enhanced-debug-logger.php:212
+msgid "Refresh"
+msgstr ""
+
+#: enhanced-debug-logger.php:214
+msgid "Auto-scroll to bottom"
+msgstr ""
+
+#: enhanced-debug-logger.php:280
+msgid "No log file found."
+msgstr ""
+
+#: enhanced-debug-logger.php:288
+msgid "No WordPress debug log found. Make sure WP_DEBUG_LOG is enabled."
+msgstr ""
+
+#: enhanced-debug-logger.php:296
+msgid "ENHANCED DEBUG LOG"
+msgstr ""
+
+#: enhanced-debug-logger.php:301
+msgid "WORDPRESS DEBUG LOG"
+msgstr ""
+
+#: enhanced-debug-logger.php:306
+msgid "No log files found."
+msgstr ""
+
+#: enhanced-debug-logger.php:325
+msgid "Enhanced Debug Console (Click to expand)"
+msgstr ""
+
+#: enhanced-debug-logger.php:329
+msgid "Clear"
+msgstr ""
+
+#: enhanced-debug-logger.php:330
+msgid "Copy"
+msgstr ""
+
+#: enhanced-debug-logger.php:331
+msgid "Auto: ON"
+msgstr ""
+
+#: enhanced-debug-logger.php:394
+msgid "Are you sure you want to clean the log?"
+msgstr ""
+
+#: enhanced-debug-logger.php:414
+msgid "Clear the debug log?"
+msgstr ""
