@@ -6,8 +6,8 @@ Description: Professional real-time logging with WordPress debug integration, co
 Version: 3.0
 Author: Volkan Kücükbudak
 Author URI: https://aicodecraft.io
-License: MIT
-License URI: https://opensource.org/licenses/MIT
+License: DBAD
+License URI: 
 Text Domain: enhanced-debug-logger
 Domain Path: /languages
 Tags: debug, logger, interactions, real-time, monitoring, WordPress, development, admin-tools, fatal-errors, copy-function
