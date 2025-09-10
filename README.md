@@ -91,13 +91,13 @@ Many developers already have these lines enabled. The plugin will use the debug-
 ## Screenshots
 
 ### 1. Enhanced Admin Interface
-![Admin Interface](screenshots/admin.jpg)
+![Admin Interface](docs/admin.jpg)
 
 ### 2. Professional Console
-![Console View](screenshots/console.jpg)
+![Console View](docs/console.jpg)
 
 ### 3. Fatal Error Detection
-![Error Detection](screenshots/error.png)
+![Error Detection](docs/error.jpg)
 
 ## Changelog
 
