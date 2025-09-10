@@ -88,20 +88,16 @@ define('WP_DEBUG_LOG', true);
 ```
 Many developers already have these lines enabled. The plugin will use the debug-log.txt file created by WordPress for its "WordPress Debug" tab.
 
-### Known Issues
-- WP_DEBUG sync problems (no refresh,somitimes blocks on hosting providers)
-
-
 ## Screenshots
 
 ### 1. Enhanced Admin Interface
-![Admin Interface](screenshots/admin-interface-v3.png)
+![Admin Interface](screenshots/admin.jpg)
 
 ### 2. Professional Console
-![Console View](screenshots/console-v3.png)
+![Console View](screenshots/console.jpg)
 
 ### 3. Fatal Error Detection
-![Error Detection](screenshots/error-detection-v3.png)
+![Error Detection](screenshots/error.png)
 
 ## Changelog
 
