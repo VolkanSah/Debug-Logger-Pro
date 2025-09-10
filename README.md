@@ -7,11 +7,11 @@
 
 A professional WordPress tool that is more than just a debug logger.
 
-## The Problem with Traditional Loggers
+### The Problem with Traditional Loggers
 
 Many debug tools are bloated, miss critical errors, and fail to provide real-time insights. You're often left in the dark, especially when a fatal error crashes your site.
 
-## The Solution: The Enhanced Debug Logger Plugin
+### The Solution: The Enhanced Debug Logger Plugin
 
 This plugin was built for developers who need clear, fast, and reliable insight into their WordPress instance. It's a `Debug Bar`, an `Observer Server`, and a `security tool` all in one.
 
@@ -22,24 +22,24 @@ This plugin was built for developers who need clear, fast, and reliable insight 
 * **Always Visible:** A floating console provides real-time insights directly on the page.
 * **Minimalist:** Slim, bloat-free, and optimized for performance.
 
-## Installation
+### Installation
 
 1.  Download the plugin.
 2.  Upload it via `Plugins > Add New > Upload Plugin` and activate it.
 3.  Go to `Tools > Debug Logger Pro` to get started.
 
-## More Information
+### More Information
 
 For a detailed guide, all features, and code examples, visit our official documentation:
 [**docs/index.html**](docs/index.html) or  [GitHub Page](https://volkansah.github.io/Debug-Logger-Pro/)
 
-### License
+#### License
 
 This project is licensed under the DBAD License - see the LICENSE file for details.
 Support
 
 For support, bug reports, or feature requests, please open an issue on the GitHub repository.
 
-#### Finally, a WordPress debug logger that doesn't suck!
+##### Finally, a WordPress debug logger that doesn't suck!
 
 > Enhanced with AI - Built for Developers - Tested in Production
