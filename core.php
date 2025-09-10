@@ -3,7 +3,7 @@
 Plugin Name: Enhanced Interaction & Debug Logger Pro
 Plugin URI: https://github.com/volkansah/interaction-debug-logger
 Description: Professional real-time logging with WordPress debug integration, copy functionality, and comprehensive error tracking including fatal errors.
-Version: 3.1
+Version: 3.0
 Author: Volkan Kücükbudak
 Author URI: https://aicodecraft.io
 License: DBAD
