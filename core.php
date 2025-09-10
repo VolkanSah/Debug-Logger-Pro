@@ -221,7 +221,7 @@ class EnhancedDebugLogger
                                 <th scope="row"><?php echo esc_html(__('Enable WordPress Debug Mode', 'enhanced-debug-logger')); ?></th>
                                 <td>
                                     <input type="checkbox" name="edl_enable_wp_debug" value="1" <?php checked('1', get_option('edl_enable_wp_debug')); ?> />
-                                    <p class="description"><?php echo esc_html(__('This will modify wp-config.php to enable WP_DEBUG, WP_DEBUG_LOG, and disable WP_DEBUG_DISPLAY. Requires file permissions.', 'enhanced-debug-logger')); ?></p>
+                                    <p class="description"><?php echo esc_html(__('This will load WP_DEBUG LOGS, normaly not needed, please modify wp-config.php to enable WP_DEBUG, WP_DEBUG_LOG to use it. .', 'enhanced-debug-logger')); ?></p>
                                 </td>
                             </tr>
                             <tr>
