@@ -20,7 +20,6 @@ if (!defined('ABSPATH')) {
 
 class EnhancedDebugLogger
 {
-
     private static $instance = null;
     private $log_file;
     private $wp_debug_log;
@@ -46,6 +45,7 @@ class EnhancedDebugLogger
         add_action('init', [$this, 'log_wordpress_requests']);
         add_action('admin_menu', [$this, 'add_admin_menu']);
         add_action('admin_init', [$this, 'settings_init']);
+        add_action('admin_init', [$this, 'handle_wp_config_update']);
         add_action('wp_footer', [$this, 'add_console']);
         add_action('admin_footer', [$this, 'add_console']);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_scripts']);
@@ -54,15 +54,8 @@ class EnhancedDebugLogger
         add_action('wp_ajax_refresh_debug_log', [$this, 'refresh_log']);
         add_action('wp_ajax_clean_debug_log', [$this, 'clean_log']);
         add_action('wp_ajax_get_wp_debug_log', [$this, 'get_wp_debug_log']);
-        add_action('wp_ajax_toggle_wp_debug', [$this, 'toggle_wp_debug']);
         add_action('wp_ajax_get_combined_logs', [$this, 'get_combined_logs']);
-
-        // Error handling
-        register_shutdown_function([$this, 'catch_fatal_error']);
-        set_error_handler([$this, 'custom_error_handler']);
-
-        // Enable WordPress debugging if option is set
-        $this->maybe_enable_wp_debug();
+        add_action('wp_ajax_clean_wp_debug_log', [$this, 'clean_wp_debug_log']);
     }
 
     public function load_plugin_textdomain()
@@ -70,19 +63,34 @@ class EnhancedDebugLogger
         load_plugin_textdomain('enhanced-debug-logger', false, basename(dirname(__FILE__)) . '/languages/');
     }
 
-    public function maybe_enable_wp_debug()
+    public function handle_wp_config_update()
     {
-        if (get_option('edl_enable_wp_debug', '0') === '1') {
-            if (!defined('WP_DEBUG')) {
-                define('WP_DEBUG', true);
-            }
-            if (!defined('WP_DEBUG_LOG')) {
-                define('WP_DEBUG_LOG', true);
-            }
-            if (!defined('WP_DEBUG_DISPLAY')) {
-                define('WP_DEBUG_DISPLAY', false);
-            }
+        if (isset($_POST['option_page']) && $_POST['option_page'] == 'enhanced_debug_logger') {
+            $wp_debug_option = get_option('edl_enable_wp_debug');
+            $this->update_wp_config_debug($wp_debug_option === '1');
         }
+    }
+    
+    public function update_wp_config_debug($enabled)
+    {
+        $config_path = ABSPATH . 'wp-config.php';
+        if (!file_exists($config_path) || !is_writable($config_path)) {
+            add_action('admin_notices', function() {
+                echo '<div class="notice notice-error is-dismissible"><p>' . esc_html(__('Could not write to wp-config.php. Please update WP_DEBUG manually.', 'enhanced-debug-logger')) . '</p></div>';
+            });
+            return;
+        }
+
+        $config_content = file_get_contents($config_path);
+        
+        $debug_log_setting = $enabled ? "define('WP_DEBUG_LOG', true);" : "define('WP_DEBUG_LOG', false);";
+        $debug_display_setting = $enabled ? "define('WP_DEBUG_DISPLAY', false);" : "define('WP_DEBUG_DISPLAY', true);";
+
+        $config_content = preg_replace("/define\('WP_DEBUG',\s*(true|false)\s*\);/i", "define('WP_DEBUG', " . ($enabled ? 'true' : 'false') . ");", $config_content);
+        $config_content = preg_replace("/define\('WP_DEBUG_LOG',\s*(true|false)\s*\);/i", $debug_log_setting, $config_content);
+        $config_content = preg_replace("/define\('WP_DEBUG_DISPLAY',\s*(true|false)\s*\);/i", $debug_display_setting, $config_content);
+        
+        file_put_contents($config_path, $config_content);
     }
 
     public function custom_error_handler($errno, $errstr, $errfile, $errline)
@@ -150,7 +158,6 @@ class EnhancedDebugLogger
             $user_ip = $_SERVER['REMOTE_ADDR'] ?? 'CLI';
             $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown';
 
-            // Skip admin-ajax.php unless specifically enabled
             if (strpos($request_uri, 'admin-ajax.php') === false || get_option('edl_log_ajax', '0') === '1') {
                 $log_message = sprintf(
                     "[%s] REQUEST: %s %s | IP: %s | UA: %s\n",
@@ -214,7 +221,7 @@ class EnhancedDebugLogger
                                 <th scope="row"><?php echo esc_html(__('Enable WordPress Debug Mode', 'enhanced-debug-logger')); ?></th>
                                 <td>
                                     <input type="checkbox" name="edl_enable_wp_debug" value="1" <?php checked('1', get_option('edl_enable_wp_debug')); ?> />
-                                    <p class="description"><?php echo esc_html(__('Automatically enables WP_DEBUG, WP_DEBUG_LOG, and disables WP_DEBUG_DISPLAY', 'enhanced-debug-logger')); ?></p>
+                                    <p class="description"><?php echo esc_html(__('This will modify wp-config.php to enable WP_DEBUG, WP_DEBUG_LOG, and disable WP_DEBUG_DISPLAY. Requires file permissions.', 'enhanced-debug-logger')); ?></p>
                                 </td>
                             </tr>
                             <tr>
@@ -259,6 +266,13 @@ class EnhancedDebugLogger
                         <label>
                             <input type="checkbox" id="auto-scroll"> <?php echo esc_html(__('Auto-scroll to bottom', 'enhanced-debug-logger')); ?>
                         </label>
+                        <select id="log-filter-select">
+                            <option value="all">Alle</option>
+                            <option value="fatal">Fatal Errors</option>
+                            <option value="error">Errors</option>
+                            <option value="warning">Warnings</option>
+                            <option value="notice">Notices</option>
+                        </select>
                     </div>
                     <div id="combined-log-content" class="log-container"></div>
                 </div>
@@ -319,7 +333,6 @@ class EnhancedDebugLogger
                     document.getElementById(tabName).style.display = "block";
                     evt.currentTarget.className += " nav-tab-active";
 
-                    // Start appropriate auto-refresh
                     clearInterval(autoRefreshTimer);
                     if (tabName === 'logs') {
                         refreshLogContent();
@@ -335,16 +348,38 @@ class EnhancedDebugLogger
                 window.switchTab = switchTab;
 
                 function formatLogContent(content) {
-                    return content.split('\n').map(function(line) {
+                    return content.split('\n').filter(line => line.trim() !== '').map(function(line) {
                         if (line.includes('Fatal Error') || line.includes('FATAL')) {
                             return '<div class="fatal-line">' + escapeHtml(line) + '</div>';
-                        } else if (line.includes('Warning') || line.includes('ERROR')) {
+                        } else if (line.includes('Error') || line.includes('ERROR') || line.includes('Parse Error')) {
                             return '<div class="error-line">' + escapeHtml(line) + '</div>';
-                        } else if (line.includes('Notice') || line.includes('WARNING')) {
+                        } else if (line.includes('Warning') || line.includes('WARNING')) {
                             return '<div class="warning-line">' + escapeHtml(line) + '</div>';
                         }
                         return '<div>' + escapeHtml(line) + '</div>';
                     }).reverse().join('');
+                }
+
+                function filterLogContent(content, filterType) {
+                    if (filterType === 'all') {
+                        return content;
+                    }
+                    var filteredLines = content.split('\n').filter(function(line) {
+                        var logType;
+                        if (line.includes('Fatal Error') || line.includes('FATAL')) {
+                            logType = 'fatal';
+                        } else if (line.includes('Error') || line.includes('ERROR') || line.includes('Parse Error')) {
+                            logType = 'error';
+                        } else if (line.includes('Warning') || line.includes('WARNING')) {
+                            logType = 'warning';
+                        } else if (line.includes('Notice') || line.includes('NOTICE')) {
+                            logType = 'notice';
+                        } else {
+                            logType = 'other';
+                        }
+                        return logType === filterType;
+                    });
+                    return filteredLines.join('\n');
                 }
 
                 function escapeHtml(text) {
@@ -391,8 +426,10 @@ class EnhancedDebugLogger
                             action: 'get_combined_logs'
                         },
                         success: function(response) {
+                            var filter = $('#log-filter-select').val();
+                            var filteredResponse = filterLogContent(response, filter);
                             var container = $('#combined-log-content');
-                            container.html(formatLogContent(response));
+                            container.html(formatLogContent(filteredResponse));
 
                             if ($('#auto-scroll').is(':checked')) {
                                 container.scrollTop(container[0].scrollHeight);
@@ -406,7 +443,6 @@ class EnhancedDebugLogger
                     navigator.clipboard.writeText(text).then(function() {
                         alert('Log copied to clipboard!');
                     }, function(err) {
-                        // Fallback for older browsers
                         var textArea = document.createElement("textarea");
                         textArea.value = text;
                         document.body.appendChild(textArea);
@@ -437,6 +473,20 @@ class EnhancedDebugLogger
                     }
                 });
 
+                $('#clean-wp-log').click(function() {
+                     if (confirm('<?php echo esc_js(__('Are you sure you want to clean the WP debug log?', 'enhanced-debug-logger')); ?>')) {
+                        $.ajax({
+                            url: ajaxurl,
+                            data: {
+                                action: 'clean_wp_debug_log'
+                            },
+                            success: function() {
+                                refreshWPLogContent();
+                            }
+                        });
+                    }
+                });
+                
                 $('#copy-log').click(function() {
                     var text = $('#debug-log-content').text();
                     copyToClipboard(text);
@@ -455,6 +505,7 @@ class EnhancedDebugLogger
                 $('#refresh-log').click(refreshLogContent);
                 $('#refresh-wp-log').click(refreshWPLogContent);
                 $('#refresh-combined-log').click(refreshCombinedLogContent);
+                $('#log-filter-select').change(refreshCombinedLogContent);
 
                 // Initial load
                 refreshLogContent();
@@ -513,6 +564,13 @@ class EnhancedDebugLogger
         wp_die();
     }
 
+    public function clean_wp_debug_log() {
+        if (file_exists($this->wp_debug_log)) {
+            file_put_contents($this->wp_debug_log, '');
+        }
+        wp_die();
+    }
+
     public function add_console()
     {
         if (current_user_can('manage_options') && get_option('edl_enabled', '0') === '1') {
@@ -523,10 +581,17 @@ class EnhancedDebugLogger
                     🔍 <?php echo esc_html(__('Enhanced Debug Console (Click to expand)', 'enhanced-debug-logger')); ?> 🔍
                 </div>
                 <div id="edl-console-content" style="padding:15px; height:calc(100% - 40px); overflow:auto; display:none;">
-                    <div style="margin-bottom: 10px;">
+                    <div style="margin-bottom: 10px; display: flex; align-items: center;">
                         <button id="edl-clear-log" style="font-size: 12px; margin-right: 10px; background:#0073aa; color:#fff; border:none; padding:8px 12px; cursor:pointer; border-radius:3px;"><?php echo esc_html(__('Clear', 'enhanced-debug-logger')); ?></button>
                         <button id="edl-copy-log" style="font-size: 12px; margin-right: 10px; background:#00a32a; color:#fff; border:none; padding:8px 12px; cursor:pointer; border-radius:3px;"><?php echo esc_html(__('Copy', 'enhanced-debug-logger')); ?></button>
                         <button id="edl-toggle-auto" style="font-size: 12px; background:#d63638; color:#fff; border:none; padding:8px 12px; cursor:pointer; border-radius:3px;"><?php echo esc_html(__('Auto: ON', 'enhanced-debug-logger')); ?></button>
+                        <select id="edl-log-filter-select" style="margin-left: 10px; font-size: 12px; padding: 5px;">
+                            <option value="all">Alle</option>
+                            <option value="fatal">Fatal Errors</option>
+                            <option value="error">Errors</option>
+                            <option value="warning">Warnings</option>
+                            <option value="notice">Notices</option>
+                        </select>
                     </div>
                     <div id="edl-log-content" style="max-height: 300px; overflow-y: auto; background:#1e1e1e; padding:10px; border-radius:3px; font-size:11px;"></div>
                 </div>
@@ -551,6 +616,27 @@ class EnhancedDebugLogger
                     }
                 }
 
+                function edlFilterLogs(logs, filterType) {
+                    if (filterType === 'all') {
+                        return logs;
+                    }
+                    return logs.filter(function(line) {
+                        var logType;
+                        if (line.includes('Fatal Error') || line.includes('FATAL')) {
+                            logType = 'fatal';
+                        } else if (line.includes('Error') || line.includes('ERROR') || line.includes('Parse Error')) {
+                            logType = 'error';
+                        } else if (line.includes('Warning') || line.includes('WARNING')) {
+                            logType = 'warning';
+                        } else if (line.includes('Notice') || line.includes('NOTICE')) {
+                            logType = 'notice';
+                        } else {
+                            logType = 'other';
+                        }
+                        return logType === filterType;
+                    });
+                }
+
                 function edlRefreshConsoleContent() {
                     jQuery.ajax({
                         url: '<?php echo admin_url('admin-ajax.php'); ?>',
@@ -558,13 +644,18 @@ class EnhancedDebugLogger
                             action: 'get_combined_logs'
                         },
                         success: function(response) {
-                            var formatted = response.split('\n').map(function(line) {
+                            var logs = response.split('\n').filter(line => line.trim() !== '');
+                            var filter = jQuery('#edl-log-filter-select').val();
+                            var filteredLogs = edlFilterLogs(logs, filter);
+                            var formatted = filteredLogs.map(function(line) {
                                 if (line.includes('Fatal') || line.includes('FATAL')) {
                                     return '<div style="color:#ff6b6b; font-weight:bold;">' + line + '</div>';
-                                } else if (line.includes('Error') || line.includes('ERROR')) {
+                                } else if (line.includes('Error') || line.includes('ERROR') || line.includes('Parse Error')) {
                                     return '<div style="color:#ffa502;">' + line + '</div>';
                                 } else if (line.includes('Warning') || line.includes('WARNING')) {
                                     return '<div style="color:#f9ca24;">' + line + '</div>';
+                                } else if (line.includes('Notice') || line.includes('NOTICE')) {
+                                    return '<div style="color:#6cb6ff;">' + line + '</div>';
                                 }
                                 return '<div style="color:#ddd;">' + line + '</div>';
                             }).reverse().join('');
@@ -615,6 +706,8 @@ class EnhancedDebugLogger
                             edlStopAutoRefresh();
                         }
                     });
+
+                    $('#edl-log-filter-select').change(edlRefreshConsoleContent);
                 });
             </script>
             <?php
