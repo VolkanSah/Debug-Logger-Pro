@@ -11,6 +11,17 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
     <style>
+            #noscript-alert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #dc3545;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
+        }
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
@@ -67,7 +78,14 @@
         }
     </style>
 </head>
+           <noscript>
+        <div id="noscript-alert">
+            <strong>WARNING:</strong> JavaScript is disabled. This website requires JavaScript to function properly.
+        </div>
+    </noscript>
 <body class="min-h-screen">
+
+      <div id="main-content" class="hidden_main">
     <div id="globe-bg" class="globe-bg"></div>
     
     <nav class="border-b border-gray-800 bg-gray-900/80 backdrop-blur-md sticky top-0 z-50">
@@ -531,8 +549,11 @@ define('WP_DEBUG_LOG', true);</code></pre>
             </div>
         </div>
     </footer>
-
+ </div> 
     <script>
+
+         // Show content only if JavaScript is enabled
+        document.getElementById('main-content').classList.remove('hidden_main');
         // Initialize animations
         AOS.init({
             duration: 800,
