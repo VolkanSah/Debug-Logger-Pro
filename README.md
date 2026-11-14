@@ -25,26 +25,33 @@ I built it because every debug plugin I tried was either a heavy toolbar or a wa
 - **Live or paused.** Updates every couple of seconds, pause when you want to read in peace.
 - No jQuery, no external requests, nothing phones home.
 
-## Install
+### **Fatal Error Detection**
+- **Catches PHP Fatal Errors** that crash your site during plugin testing
+- **Shutdown Function Handler** captures errors that other tools miss
+- **Plugin Installation Crashes** are now logged and traceable
 
-1. Download the repo as ZIP (or use the release ZIP).
-2. In WordPress go to **Plugins → Add New → Upload Plugin**, upload, activate.
-3. Open **Tools → Debug Logger → Settings**, tick *Record PHP errors…* and save.
-4. Switch to the **Logs** tab and reload any page to see the first entries.
+### **Professional Logging**
+- **Real-time WordPress Debug Integration** - automatically enables WP_DEBUG when needed
+- **Combined Log Views** - see your custom logs AND WordPress debug-log.txt in one place
+- **Copy-to-Clipboard Functionality** - finally works properly with modern browsers
+- **Color-coded Error Levels** - Fatal errors in red, warnings in orange, notices in yellow
 
-Needs WordPress 6.0+ and PHP 8.1+. Built for PHP 8.1 up to 8.5.
+### **Smart Console**
+- **Expandable Console** appears on both frontend and admin
+- **Auto-refresh with pause/resume** controls
+- **Tab-based Interface** for different log types
+- **Auto-scroll to latest entries** option
 
-## Settings
+### **Performance Optimized**
+- **File-locking** prevents corruption during concurrent requests
+- **Configurable log size limits** prevent disk space issues
+- **Optional AJAX request filtering** keeps logs clean
+- **Lightweight footprint** - no bloat, just functionality
 
-| Setting | What it does | Default |
-|---|---|---|
-| Record PHP errors | Master switch. Nothing is recorded while it's off. | off |
-| Record every page request | Method and path only, no query string. | on |
-| Include AJAX requests | Adds `admin-ajax.php` calls (the logger's own polling is always excluded). | off |
-| Store visitor IP addresses | Only turn this on if you really need it. IPs are personal data. | off |
-| Show floating button | Admins only, on the site and in wp-admin. | on |
-| Refresh every | Seconds between updates while the viewer is open. | 2 |
-| Rotate the log at | Max size in MB. The old file is kept once as `.old`. | 5 |
+### **Internationalization (i18n) Ready**
+- **Full WP-i18n integration** ensures all text strings are translatable.
+- **`.pot` and `.po` file generation support** to easily create new language packs.
+- **Seamless multi-language compatibility** for a global developer community.
 
 ## The WordPress debug log
 
