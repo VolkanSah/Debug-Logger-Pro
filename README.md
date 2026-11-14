@@ -2,8 +2,6 @@
 # Debug Logger Pro
 ###### Enhanced Interaction & Debug Logger 
 
-
-![License](https://img.shields.io/badge/license-DBAD-blue.svg)
 ![Version](https://img.shields.io/badge/version-4.0-green.svg)
 ![WordPress](https://img.shields.io/badge/WordPress-Compatible-blue.svg)
 
