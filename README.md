@@ -151,7 +151,7 @@ This plugin was significantly improved with assistance from Claude 4 Sonnet (Ant
 
 ## License
 
-This project is licensed under the DBAD License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPL 3 +  DBAD License - see the [LICENSE](LICENSE) file for details.
 
 ## Support
 
