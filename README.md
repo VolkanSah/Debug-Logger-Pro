@@ -4,7 +4,7 @@
 
 
 ![License](https://img.shields.io/badge/license-DBAD-blue.svg)
-![Version](https://img.shields.io/badge/version-3.0-green.svg)
+![Version](https://img.shields.io/badge/version-4.0-green.svg)
 ![WordPress](https://img.shields.io/badge/WordPress-Compatible-blue.svg)
 ![AI Enhanced](https://img.shields.io/badge/AI%20Enhanced-Claude%204-purple.svg)
 ![AI Enhanced](https://img.shields.io/badge/AI%20Enhanced-Gemini%202.5-purple.svg)
