@@ -1,0 +1,302 @@
+/* Debug Logger – viewer styles. Everything is scoped to #edl-app so themes can't break it. */
+
+#edl-app,
+#edl-app * {
+    box-sizing: border-box;
+}
+
+#edl-app {
+    --edl-bg: #14181c;
+    --edl-bar: #1d2327;
+    --edl-line: #2c333a;
+    --edl-text: #dcdfe3;
+    --edl-muted: #8c95a0;
+    --edl-fatal: #ff6b6b;
+    --edl-error: #ff9f43;
+    --edl-warning: #f6c945;
+    --edl-notice: #6cb6ff;
+    --edl-deprecated: #b39ddb;
+    --edl-request: #7f8c99;
+    font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--edl-text);
+    text-align: left;
+}
+
+#edl-app :focus-visible {
+    outline: 2px solid var(--edl-notice);
+    outline-offset: 2px;
+}
+
+#edl-app [hidden] {
+    display: none !important;
+}
+
+/* ---- viewer ---------------------------------------------------------- */
+
+#edl-app .edl-viewer {
+    display: flex;
+    flex-direction: column;
+    background: var(--edl-bg);
+    border: 1px solid var(--edl-line);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+#edl-app[data-mode="page"] {
+    margin-top: 16px;
+}
+
+#edl-app[data-mode="page"] .edl-viewer {
+    height: calc(100vh - 260px);
+    min-height: 360px;
+}
+
+#edl-app .edl-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: var(--edl-bar);
+    border-bottom: 1px solid var(--edl-line);
+}
+
+#edl-app .edl-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+#edl-app .edl-spacer {
+    flex: 1 1 0;
+}
+
+#edl-app .edl-chip {
+    --c: var(--edl-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    padding: 3px 10px;
+    font: inherit;
+    line-height: 1.4;
+    color: var(--edl-muted);
+    background: transparent;
+    border: 1px solid var(--edl-line);
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+#edl-app .edl-chip::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--c);
+    opacity: 0.4;
+}
+
+#edl-app .edl-chip[aria-pressed="true"] {
+    color: var(--edl-text);
+    border-color: var(--c);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#edl-app .edl-chip[aria-pressed="true"]::before {
+    opacity: 1;
+}
+
+#edl-app .edl-chip[data-level="fatal"] { --c: var(--edl-fatal); }
+#edl-app .edl-chip[data-level="error"] { --c: var(--edl-error); }
+#edl-app .edl-chip[data-level="warning"] { --c: var(--edl-warning); }
+#edl-app .edl-chip[data-level="notice"] { --c: var(--edl-notice); }
+#edl-app .edl-chip[data-level="deprecated"] { --c: var(--edl-deprecated); }
+#edl-app .edl-chip[data-level="request"] { --c: var(--edl-request); }
+
+#edl-app .edl-count {
+    font-variant-numeric: tabular-nums;
+    opacity: 0.75;
+}
+
+#edl-app .edl-btn,
+#edl-app .edl-select,
+#edl-app .edl-search {
+    margin: 0;
+    padding: 4px 10px;
+    font: inherit;
+    line-height: 1.4;
+    color: var(--edl-text);
+    background: var(--edl-bg);
+    border: 1px solid var(--edl-line);
+    border-radius: 3px;
+    box-shadow: none;
+}
+
+#edl-app .edl-btn {
+    cursor: pointer;
+}
+
+#edl-app .edl-btn:hover {
+    border-color: var(--edl-muted);
+}
+
+#edl-app .edl-search {
+    width: 180px;
+    max-width: 100%;
+}
+
+#edl-app .edl-live::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: var(--edl-muted);
+}
+
+#edl-app .edl-live[aria-pressed="true"]::before {
+    background: #46c46f;
+}
+
+/* ---- entries --------------------------------------------------------- */
+
+#edl-app .edl-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+#edl-app .edl-row {
+    --c: var(--edl-muted);
+    display: grid;
+    grid-template-columns: 110px 84px 1fr;
+    gap: 10px;
+    padding: 5px 12px;
+    border-left: 3px solid var(--c);
+    border-bottom: 1px solid #1b2025;
+}
+
+#edl-app .edl-lv-fatal { --c: var(--edl-fatal); background: rgba(255, 107, 107, 0.08); }
+#edl-app .edl-lv-error { --c: var(--edl-error); }
+#edl-app .edl-lv-warning { --c: var(--edl-warning); }
+#edl-app .edl-lv-notice { --c: var(--edl-notice); }
+#edl-app .edl-lv-deprecated { --c: var(--edl-deprecated); }
+#edl-app .edl-lv-request { --c: var(--edl-request); }
+
+#edl-app .edl-time {
+    color: var(--edl-muted);
+    white-space: nowrap;
+}
+
+#edl-app .edl-badge {
+    color: var(--c);
+    font-weight: 600;
+}
+
+#edl-app .edl-text {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+#edl-app .edl-loc {
+    color: var(--edl-muted);
+    overflow-wrap: anywhere;
+}
+
+#edl-app .edl-empty {
+    padding: 40px 16px;
+    text-align: center;
+    color: var(--edl-muted);
+    font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+#edl-app .edl-status {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--edl-muted);
+    background: var(--edl-bar);
+    border-top: 1px solid var(--edl-line);
+}
+
+#edl-app .edl-error {
+    color: var(--edl-fatal);
+}
+
+/* ---- floating console (site and wp-admin) ---------------------------- */
+
+#edl-app[data-mode="console"] .edl-pill {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 999999;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 7px 14px;
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: var(--edl-bar);
+    border: 1px solid var(--edl-line);
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+}
+
+#edl-app .edl-pill-count {
+    display: none;
+    min-width: 20px;
+    padding: 0 6px;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    color: #14181c;
+    border-radius: 10px;
+}
+
+#edl-app .edl-pill.edl-has-issues .edl-pill-count {
+    display: inline-block;
+    background: var(--edl-warning);
+}
+
+#edl-app .edl-pill.edl-has-fatal .edl-pill-count {
+    display: inline-block;
+    background: var(--edl-fatal);
+}
+
+#edl-app .edl-panel {
+    position: fixed;
+    right: 16px;
+    bottom: 64px;
+    z-index: 999999;
+    width: min(960px, calc(100vw - 32px));
+    height: min(60vh, 560px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+}
+
+#edl-app .edl-panel .edl-viewer {
+    height: 100%;
+}
+
+/* ---- small screens ---------------------------------------------------- */
+
+@media (max-width: 640px) {
+    #edl-app .edl-row {
+        grid-template-columns: 1fr;
+        gap: 2px;
+    }
+
+    #edl-app .edl-search {
+        width: 100%;
+    }
+
+    #edl-app .edl-spacer {
+        display: none;
+    }
+}

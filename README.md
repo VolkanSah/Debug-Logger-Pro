@@ -1,4 +1,6 @@
-# Enhanced Interaction & Debug Logger Pro
+
+# Debug Logger Pro
+###### Enhanced Interaction & Debug Logger 
 
 
 ![License](https://img.shields.io/badge/license-DBAD-blue.svg)
@@ -9,13 +11,19 @@
 
 
 
-## Description
+A small WordPress plugin that shows you what's going wrong on your site, live, without leaving wp-admin. PHP warnings, fatal errors (yes, also the ones that kill your site while you install a plugin) and page requests all end up in one log with filters, search and a copy button.
 
-**Enhanced Interaction & Debug Logger Pro** is a professional WordPress debugging plugin that captures everything - from simple page requests to fatal PHP errors. Born from frustration with bloated monitoring tools and debug bars that slow down development, this plugin provides a lightweight, comprehensive logging solution.
+I built it because every debug plugin I tried was either a heavy toolbar or a wall of settings. This one does one thing: show the log.
 
-**Why this plugin exists:** After dealing with overloaded debug bars, heavy monitoring apps, and tools that miss critical errors (especially fatal errors during plugin installations), I decided to enhance my original logging tool with the help of Claude 4 Sonnet to create something that actually works when you need it most.
+## What you get
 
-## Key Features
+- **Fatal errors included.** A shutdown handler catches crashes that normal error handlers never see.
+- **One viewer for everything.** Plugin log and WordPress' own `debug.log` side by side or merged, newest entry on top.
+- **Filter chips** for Fatal, Error, Warning, Notice, Deprecated and Request, each with a live counter.
+- **Search, copy, download, clear.** Copy gives you plain text you can paste into a bug report.
+- **Floating button** on the site and in wp-admin (admins only). It shows how many issues were logged and opens the viewer in a panel, so you can check a page without switching tabs.
+- **Live or paused.** Updates every couple of seconds, pause when you want to read in peace.
+- No jQuery, no external requests, nothing phones home.
 
 ### **Fatal Error Detection**
 - **Catches PHP Fatal Errors** that crash your site during plugin testing
@@ -45,120 +53,83 @@
 - **`.pot` and `.po` file generation support** to easily create new language packs.
 - **Seamless multi-language compatibility** for a global developer community.
 
-## Installation
+## The WordPress debug log
 
-1. Download the plugin and unzip it.
-2. Upload the `enhanced-interaction-debug-logger` directory to your `/wp-content/plugins/` directory.
-3. Activate the plugin through the 'Plugins' menu in WordPress.
-4. Go to `Tools > Debug Logger Pro` to configure the settings.
-
-## Usage
-
-### Basic Setup
-- **Enable Logging:** Navigate to `Tools > Debug Logger Pro` and enable logging
-- **WordPress Debug Mode:** Enable automatic WordPress debugging integration
-- **Configure Refresh Rate:** Set how often logs update (default: 1 second)
-
-### Viewing Logs
-- **Live Logs Tab:** Your custom interaction and error logs
-- **WordPress Debug Tab:** Standard WordPress debug-log.txt content
-- **Combined View:** Everything in chronological order with auto-scroll
-
-### Console Usage
-- **Frontend/Admin Console:** Fixed console at bottom of screen
-- **Click to expand/collapse:** Doesn't interfere with normal usage
-- **Copy logs instantly** with the copy button
-- **Clear logs** when needed
-
-### Error Detection
-The plugin automatically catches and logs:
-- Fatal PHP Errors
-- Parse Errors
-- Plugin/Theme Errors
-- Database Errors
-- Custom Error Messages
-- All WordPress Debug Messages
-
-### WP_DEBUG Integration
-For most interactions during plugin and theme development, this tool is enought. If you need a complete debug history including all WordPress notices and warnings with this plugin, you must manually enable it. Add the following lines to your `wp-config.php`:
+The plugin can also read WordPress' own log. For that, `WP_DEBUG_LOG` has to be on. Add this to `wp-config.php` (the plugin does **not** edit that file anymore, see below):
 
 ```php
-define('WP_DEBUG', true);
-define('WP_DEBUG_LOG', true);
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', true );
+define( 'WP_DEBUG_DISPLAY', false );
 ```
-Many developers already have these lines enabled. The plugin will use the debug-log.txt file created by WordPress for its "WordPress Debug" tab.
 
-## Screenshots
+Heads-up: with `WP_DEBUG_LOG` set to `true`, WordPress writes to `wp-content/debug.log`, and that file is often downloadable by anyone. You can point it to a path outside the web root instead, the plugin follows whatever path you set.
 
-### 1. Enhanced Admin Interface
-![Admin Interface](docs/admin.jpg)
+## Where the logs live
 
-### 2. Professional Console
-![Console View](docs/console.jpg)
+`wp-content/edl-logs/edl-<random>.log`, one JSON object per line. The folder gets an `.htaccess` that blocks direct access, and the file name is random, so even without Apache rules nobody can guess it. On **nginx** add a rule that denies the `edl-logs` folder, because `.htaccess` is ignored there.
 
-### 3. Error Detection
-![Error Detection](docs/error.jpg)
+Query strings are never stored, because they can contain things like password-reset keys.
+
+## Upgrading from 3.x
+
+Version 4 is a rewrite of the core, so a few things changed:
+
+- The setting that edited `wp-config.php` is gone. Editing that file from a plugin is risky; copy the snippet above instead.
+- The log moved to `wp-content/edl-logs/`. The old `wp-content/enhanced-debug-log.txt` is not used anymore and may be publicly readable, **delete it**. (The plugin shows a warning while it exists.)
+- Settings are new, so open **Tools → Debug Logger → Settings** once and save.
+- The German translation file is out of date, see below.
+
+## Security
+
+Every AJAX call checks that you're an administrator and carries a nonce. Log content is only ever put into the page as text, never as HTML, so a nasty User-Agent or URL can't run code in your browser. Details of what changed in 4.0 are in the changelog.
+
+If you find a hole anyway, please open an issue or write to me directly instead of posting an exploit.
+
+## Translations
+
+Strings use the `enhanced-debug-logger` text domain. The files in `languages/` are from version 3 and miss most new strings. To regenerate the template:
+
+```bash
+wp i18n make-pot . languages/enhanced-debug-logger.pot
+```
+
+Translations welcome.
 
 ## Changelog
 
-### Version 3.1 - The Collaborative Polish
-- ** NEW:** Full internationalization (i18n) support added with `.pot` and `.po` file generation capability.
-- ** IMPROVED:** Adjusted the default WordPress debug log filename to `debug-log.txt` for consistency with some hosting environments.
+### 4.0.0
 
-### Version 3.0 - AI Enhanced Edition
-- ** MAJOR:** Complete rewrite with Claude 4 Sonnet assistance
-- ** NEW:** Fatal error detection and logging
-- ** NEW:** WordPress debug-log.txt integration
-- ** NEW:** Working copy-to-clipboard functionality
-- ** NEW:** Combined log view with real-time updates
-- ** NEW:** Color-coded error levels (Fatal/Warning/Notice)
-- ** NEW:** Tab-based admin interface
-- ** NEW:** Auto-scroll and pause/resume controls
-- ** NEW:** File-locking for concurrent request safety
-- ** NEW:** Configurable log size limits
-- ** NEW:** Professional error handling and user feedback
-- **FIXED:** Double hook registration bug from v2.5
-- **FIXED:** XSS vulnerability in log display
-- **FIXED:** Race condition in file writing
-- **FIXED:** Missing error handling for file operations
-- **IMPROVED:** OOP architecture with singleton pattern
-- **IMPROVED:** Better performance and memory usage
-- **IMPROVED:** Enhanced security and validation
+**Security**
+- All AJAX endpoints now require `manage_options` and a nonce. Before, any logged-in user (even a subscriber) could read and clear the logs.
+- Fixed stored XSS in the floating console: log lines are rendered as text now.
+- Removed the code that rewrote `wp-config.php`. It ran on `admin_init`, which also fires for visitors who aren't logged in.
+- Logs moved to a protected folder with a random file name. Query strings and IPs are no longer stored by default.
 
-### Version 2.5 (Previous)
-- **NEW:** Reverse log order to show the latest entries at the top
-- **NEW:** Filter out unnecessary AJAX logs for cleaner data
-- **Improvement:** Enhanced UI for better accessibility and user experience
-- **Improvement:** Added "Clear Log" button directly in the console
+**Fixed**
+- The PHP error and fatal error handlers were defined but never registered, so fatal errors weren't actually caught. They are now.
+- Max log size is enforced (rotation). Only the end of a log is read, not the whole file.
+- WordPress' real debug log path is used (`debug.log`, or whatever `WP_DEBUG_LOG` points to).
+- PHP 8.4/8.5: no more use of the deprecated `E_STRICT` constant.
+
+**New**
+- One log viewer instead of three tabs, with level filters, search, copy, download and clear.
+- Floating button with issue counter, plain JavaScript instead of jQuery.
+- Uninstall removes options and log files.
+
+### 3.1
+- Internationalization (`.pot` / `.po`), `debug-log.txt` as default WP log name.
+
+### 3.0
+- Rewrite with fatal error detection, WP debug log integration, copy to clipboard, file locking.
+
+### 2.5
+- Newest entries first, AJAX filter, "Clear log" button.
 
 ## Contributing
 
-Contributions are welcome! This plugin was enhanced with AI assistance, but human developers are still needed for:
-- Testing on different WordPress versions
-- Feature requests and bug reports
-- Translation improvements
-- Performance optimizations
-
-## AI Enhancement Notice
-
-This plugin was significantly improved with assistance from Claude 4 Sonnet (Anthropic) and Gemini (Google). The AIs helped with:
-- Code review and bug identification
-- WordPress best practices implementation
-- Security improvements
-- Performance optimization suggestions
-- Modern JavaScript API usage
-- **Internationalization and Language File Generation**
+Bug reports, translations and PRs are welcome. Especially helpful: testing on odd hosting setups and different PHP versions.
 
 ## License
 
-This project is licensed under the DBAD License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-For support, bug reports, or feature requests, please open an issue on the GitHub repository.
-
----
-
-**Finally, a WordPress debug logger that doesn't suck!**
-
-*Enhanced with AI - Built for Developers - Tested in Production*
+AGPL3, see [LICENSE](LICENSE).
